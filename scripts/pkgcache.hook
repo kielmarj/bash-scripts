@@ -1,0 +1,19 @@
+#╭━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╮
+#┆ FILE: /etc/pacman.d/hooks/pkgcache.hook                                     ┆
+#┆ ABOUT: Pacman hook to exec pkgcache-hook.sh. This hook is triggered every   ┆
+#┆   time a package is installed, removed, or upgraded.                        ┆
+#┆ REPO: <https://github.com/kielmarj/bash-scripts>                            ┆
+#┆ © 2024 Jessica Kielmar <kielmarj@gmail.com>, MIT License                    ┆
+#╰━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╯
+
+[Trigger]
+Operation = Remove
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Cleaning the package cache...
+When = PostTransaction
+Exec = /home/jess/bin/pkgcache-hook.sh
