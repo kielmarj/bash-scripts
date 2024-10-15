@@ -3,21 +3,22 @@
 #╭━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╮
 #┆ FILE: brightness.sh                                                         ┆
 #┆ ABOUT: Adjusts brightness & sends notification. Requires `brightnessctl` &  ┆
-#┆   `libnotify`.                                                              ┆
-#┆ USAGE: $0 {--up|--down|--help} See comment '### SETUP' below to enable      ┆
-#┆   notifications.                                                            ┆
+#┆   `libnotify`. Optionally, set up icons for desktop notifications - see     ┆
+#┆    1st comment, '### SETUP ICONS(1)'.                                       ┆
+#┆ USAGE: $0 {--up|--down|--help}                                              ┆
 #┆ REPO: <https://github.com/kielmarj/bash-scripts>                            ┆
 #┆ © 2024 Jessica Kielmar <kielmarj@gmail.com>, MIT License                    ┆
 #╰━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╯
 
-### SETUP To enable notifications, set iconDir below to the path of your icon
-### directory (no trailing `/`). Then, scroll down to '### SETUP ICONS'.
-iconDir='/home/jess/.config/dunst/icons'
-
-# List required programs
-required_progs=(brightnessctl notify-send)
+###
+### SETUP ICONS(1): To enable notification icons, set iconDir below to the path
+### of your icon directory. Then, scroll down to comment '### SETUP ICONS(2)'.
+###
+# !TODO better way to set up icons?
+iconDir='/home/jess/.config/dunst/icon' # no trailing /
 
 # Check for required programs
+required_progs=(brightnessctl notify-send)
 for prog in "${required_progs[@]}"; do
     if ! command -v "$prog" &>/dev/null; then
         printf 'ERROR: %s command not found\n' "$prog"
@@ -25,29 +26,13 @@ for prog in "${required_progs[@]}"; do
     fi
 done
 
-# Check if iconDir exists
-if ! [[ -d $iconDir ]]; then
-    echo "ERROR: Icon directory $iconDir not found."
-    exit 1
-fi
-
-# Assign variable for help message
-USAGE="USAGE: $(basename "$0") {--up|--down|--help}"
-
-# Assign variable to determine brightness level
-brightness_level="$(brightnessctl -m | cut -d, -f4 | tr -d '[:punct:]')"
-
 # Adjust brightness or display help
+brightness_level="$(brightnessctl -m | cut -d, -f4 | tr -d '[:punct:]')"
+USAGE="USAGE: $(basename "$0") {--up|--down|--help}"
 if [[ "$1" == "--up" ]]; then
-    brightnessctl set "+5%" &>/dev/null
+    brightnessctl set "+5" &>/dev/null
 elif [[ "$1" == "--down" ]]; then
-    # Avoid setting brightness to 0
-    if [[ "$brightness_level" -le "5" ]]; then
-        echo "ERROR: Brightness already set to lowest possible level."
-        exit 1
-    else
-        brightnessctl set "5%-" &>/dev/null
-    fi
+    brightnessctl --min-value=1 set "5-" &>/dev/null
 elif [[ "$1" == "--help" ]]; then
     echo "$USAGE"
     exit 0
@@ -59,8 +44,15 @@ fi
 # Re-fetch brightness_level
 brightness_level="$(brightnessctl -m | cut -d, -f4 | tr -d '[:punct:]')"
 
-### SETUP ICONS Ensure icon names in $iconDir match iconImgs referenced below.
-# Fetch icon based on current level
+# Check if iconDir exists
+if ! [[ -d $iconDir ]]; then
+    echo "ERROR: Icon directory $iconDir not found."
+fi
+
+###
+### SETUP ICONS(2): ensure icon names in $iconDir match iconImgs referenced
+### below.
+###
 if [[ "$brightness_level" -le "20" ]]; then
     iconImg="$iconDir/brightness-20.png"
 elif [[ "$brightness_level" -le "40" ]]; then
