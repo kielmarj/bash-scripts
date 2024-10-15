@@ -11,7 +11,7 @@
 #╰━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╯
 
 ### SETUP To enable notifications, set iconDir below to the path of your icon
-### directory (no trailing backslash). Then, scroll down to '### SETUP ICONS'.
+### directory (no trailing `/`). Then, scroll down to '### SETUP ICONS'.
 iconDir='/home/jess/.config/dunst/icons'
 
 # List required programs
