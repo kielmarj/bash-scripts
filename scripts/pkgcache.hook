@@ -1,5 +1,6 @@
 #╭━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╮
-#┆ FILE: /etc/pacman.d/hooks/pkgcache.hook                                     ┆
+#┆ FILE: bash-scripts/scripts/pkgcache.hook                                    ┆
+#┆ SYS PATH: /etc/pacman.d/hooks/pkgcache.hook                                 ┆
 #┆ ABOUT: Pacman hook to exec pkgcache-hook.sh. This hook is triggered every   ┆
 #┆   time a package is installed, removed, or upgraded.                        ┆
 #┆ REPO: <https://github.com/kielmarj/bash-scripts>                            ┆

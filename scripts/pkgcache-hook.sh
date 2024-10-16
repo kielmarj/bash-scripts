@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #╭━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━◦○◦━╮
-#┆ FILE: pkgcache-hook.sh                                                      ┆
+#┆ FILE: bash-scripts/scripts/pkgcache-hook.sh                                 ┆
 #┆ ABOUT: Simple script for cleaning pacman's pkg cache with `paccache`.       ┆
 #┆   `paccache` is provided by `pacman-contrib`.                               ┆
 #┆ USAGE: Intended for use with pacman hook 'pkgcache.hook' (in this repo) to  ┆
